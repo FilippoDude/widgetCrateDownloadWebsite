@@ -1,9 +1,11 @@
 'use client'
 import Image from "next/image";
 import gsap from "gsap";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import Releases from "./components/Releases";
 export default function Home() {
   const titleRef = useRef<HTMLHeadingElement | null>(null)
+
   useEffect(() => {
     if(titleRef.current != null){
       const words = titleRef.current.querySelectorAll("span");
@@ -16,13 +18,13 @@ export default function Home() {
         ease: "bounce.out",
         stagger: 0.15,
       });
-        gsap.from(lastWord, {
-          scale: 0,
-          opacity: 0,
-          duration: 1,
-          ease: "back.out(1.4)",
-          delay: allExceptLast.length * 0.15 + 0.1,
-        });
+      gsap.from(lastWord, {
+        scale: 0,
+        opacity: 0,
+        duration: 1,
+        ease: "back.out(1.4)",
+        delay: allExceptLast.length * 0.15 + 0.1,
+      });    
     }
   },[])
   return (
@@ -36,7 +38,7 @@ export default function Home() {
             <span className="inline-block mr-2">more</span>
             <span className="inline-block font-black">WIDGETS!</span>
           </h1>
-          <button className="bg-[#8D86C9] py-2 px-6 rounded-xl cursor-pointer mt-2">Download</button>
+          <Releases className="mt-4"/>
         </div>
       </main>
     </div>
