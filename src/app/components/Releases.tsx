@@ -1,21 +1,33 @@
 'use client'
 
-import { useEffect, useState } from "react"
-type releasesType = [] | null | 'failed'
+import { useEffect, useRef, useState } from "react"
+import gsap from "gsap"
 
+type releasesType = [] | null | 'failed'
 const extractDate = (releaseTime: string) => {
     return releaseTime.slice(0, 10)
 }
 
 const Releases = ({className} : {className: string}) => {
     const [releases, setReleases] = useState<releasesType>(null)
-
+    const releasesElsRef = useRef<HTMLDivElement[]>([]) 
     useEffect(() => {
         console.log(releases)
+        if(releasesElsRef.current){
+            for(let i = 0; i<releasesElsRef.current.length; i++){
+                gsap.from(releasesElsRef.current[i], {
+                    translateX: i%2 == 1 ? 100 : -100,
+                    opacity: 0,
+                    duration: 1,
+                    delay: i * 0.5
+                })
+            }
+        }
     }, [releases])
 
     const getReleases = async () => {
         setReleases(null)
+        releasesElsRef.current = []
         fetch("https://api.github.com/repos/FilippoDude/widgetscratepub/releases")
             .then(res => res.json())
             .then(data => setReleases(data))
@@ -26,6 +38,11 @@ const Releases = ({className} : {className: string}) => {
         getReleases()
     }, [])
 
+    const addReleaseElRef = (ref: HTMLDivElement | null) => {
+        if(ref != null){
+            releasesElsRef.current.push(ref)
+        }
+    }
 
     return(
         <>  
@@ -39,21 +56,26 @@ const Releases = ({className} : {className: string}) => {
                     <button onClick={getReleases} className="relative cursor-pointer font-bold underline-offset-5 underline text-4xl">Retry?</button>
                 </div>
             :
-            releases.map((release, i) => {
-                return <div key={i} className={"flex flex-col gap-2 " + className}>
-                    <div className="relative rounded-2xl w-200 h-40 bg-[#00000060] p-2">
-                        <p className="font-black text-4xl absolute top-4 left-4">{release["name"]}</p>
-                        <p className="font-medium text-xl absolute bottom-4 left-4">{release["body"]}</p>
-                        <p className="font-bold text-xl absolute top-4 right-4">{extractDate(release["published_at"])}</p>
-                        { release["assets"][0] ? 
-                            
-                            <a className="absolute right-4 bottom-4 bg-[#8D86C9] py-2 px-6 rounded-xl cursor-pointer mt-2" href={release["assets"][0]["browser_download_url"]}>Download</a>
-                        :
-                            <a className="absolute right-4 bottom-4 bg-[#8D86C9] py-2 px-6 rounded-xl cursor-pointer mt-2">No direct download</a>
-                        }
-                    </div>
-                </div>
-            })
+            <div className={"relative flex flex-col gap-2 h-fit " + className}>
+                {releases.map((release, i) => {
+                    return <div key={i} ref={ref => addReleaseElRef(ref)} className="relative rounded-2xl w-full sm:w-200 min-h-40 bg-[#00000060] flex flex-col justify-around">
+                            <div className="relative w-full flex flex-row justify-between px-4 flex-wrap gap-x-6 gap-y-2 pt-4">
+                                <p className="font-black text-4xl">{release["name"]}</p>
+                                <p className="font-bold text-xl ">{extractDate(release["published_at"])}</p>
+                            </div>
+                            <div className="flex flex-row relative min-w-full w-full items-end flex-wrap justify-between gap-2 px-4 pb-4 pt-4">
+                                <p className="font-medium text-md min-w-40 sm:w-fit md:text-xl">{release["body"]}</p>
+                                { release["assets"][0] ? 
+                                    
+                                    <a className="min-w-fit max-w-46 w-full text-center h-fit bg-[#8D86C9] py-2 px-6 rounded-xl cursor-pointer transition-all duration-100 hover:bg-[#242038]" href={release["assets"][0]["browser_download_url"]}>Download</a>
+                                :
+                                    <a className="min-w-fit h-fit max-w-46 bg-[#8D86C9] py-2 px-6 rounded-xl cursor-pointer hover:brightness-50 transition-all duration-100 text-center">No direct download</a>
+                                }
+                            </div>
+                        </div>
+                    })
+                }
+            </div>
             }
         </>
     )

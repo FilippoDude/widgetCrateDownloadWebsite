@@ -28,17 +28,17 @@ export default function Home() {
     }
   },[])
   return (
-    <div className="relative min-h-screen w-full bg-[#242038]">
-      <main className="flex w-full h-screen justify-center items-center ">
-        <div className="relative flex flex-col items-center w-200 h-140 rounded-4xl">
-          <h1 ref={titleRef} className="text-4xl font-bold mt-10">      
+    <div className="absolute top-0 left-0 w-full bg-[#242038] overflow-x-hidden">
+      <main className="flex w-full h-screen justify-center  ">
+        <div className=" relative flex flex-col items-center rounded-4xl">
+          <h1 ref={titleRef} className="px-2 text-4xl font-bold mt-10 text-center">      
             <span className="inline-block mr-2">Widgets</span>
             <span className="inline-block mr-2">Widgets</span>
             <span className="inline-block mr-2">and</span>
             <span className="inline-block mr-2">more</span>
-            <span className="inline-block font-black">WIDGETS!</span>
+            <span className="inline-block font-black text-transparent  bg-clip-text bg-[length:200%_200%] bg-gradient-to-r from-red-500 via-yellow-500 to-purple-600">WIDGETS!</span>
           </h1>
-          <Releases className="mt-4"/>
+          <Releases className=" py-4 w-full"/>
         </div>
       </main>
     </div>
