@@ -30,6 +30,7 @@ export default function Home() {
   return (
     <div className="absolute top-0 left-0 w-full bg-[#242038] overflow-x-hidden">
       <main className="flex w-full h-screen justify-center  ">
+        <div className="absolute top-0 left-0 h-full w-full"><Image src={"/movingElements.png"} fill={true} alt="Moving element"></Image></div>
         <div className=" relative flex flex-col items-center rounded-4xl">
           <h1 ref={titleRef} className="px-2 text-4xl font-bold mt-10 text-center">      
             <span className="inline-block mr-2">Widgets</span>
