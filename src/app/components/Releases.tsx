@@ -15,11 +15,14 @@ const Releases = ({className} : {className: string}) => {
         console.log(releases)
         if(releasesElsRef.current){
             for(let i = 0; i<releasesElsRef.current.length; i++){
-                gsap.from(releasesElsRef.current[i], {
+                gsap.fromTo(releasesElsRef.current[i], {
                     translateX: i%2 == 1 ? 100 : -100,
                     opacity: 0,
                     duration: 1,
                     delay: i * 0.5
+                },{
+                    translateX: 0,
+                    opacity: 1
                 })
             }
         }

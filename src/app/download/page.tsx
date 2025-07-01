@@ -13,20 +13,14 @@ export default function Download() {
       const lastWord = words[words.length - 1];
       gsap.set(allExceptLast, { clearProps: "all" });
       gsap.set(lastWord, { clearProps: "all" });
-      gsap.from(allExceptLast, {
-        y: -50,
-        opacity: 0,
-        duration: 0.4,
-        ease: "bounce.out",
-        stagger: 0.15,
-      });
-      gsap.from(lastWord, {
-        scale: 0,
-        opacity: 0,
-        duration: 1,
-        ease: "back.out(1.4)",
-        delay: allExceptLast.length * 0.15 + 0.1,
-      });    
+      gsap.fromTo(allExceptLast, 
+        { y: -50, opacity: 0 }, 
+        { y: 0, opacity: 1, duration: 0.4, ease: "bounce.out", stagger: 0.15 }
+      );
+      gsap.fromTo(lastWord,
+        { scale: 0, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 1, ease: "back.out(1.4)", delay: allExceptLast.length * 0.15 + 0.1 }
+      );
     }
   },[])
 
