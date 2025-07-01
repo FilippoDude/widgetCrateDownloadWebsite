@@ -1,47 +1,14 @@
 'use client'
-import Image from "next/image";
-import gsap from "gsap";
-import { useEffect, useRef, useState } from "react";
-import Releases from "./components/Releases";
+import Link from "next/link";
 export default function Home() {
-  const titleRef = useRef<HTMLHeadingElement | null>(null)
-
-  useEffect(() => {
-    if(titleRef.current != null){
-      const words = titleRef.current.querySelectorAll("span");
-      const allExceptLast = Array.from(words).slice(0, -1); // All but the last span
-      const lastWord = words[words.length - 1];
-      gsap.from(allExceptLast, {
-        y: -50,
-        opacity: 0,
-        duration: 0.4,
-        ease: "bounce.out",
-        stagger: 0.15,
-      });
-      gsap.from(lastWord, {
-        scale: 0,
-        opacity: 0,
-        duration: 1,
-        ease: "back.out(1.4)",
-        delay: allExceptLast.length * 0.15 + 0.1,
-      });    
-    }
-  },[])
   return (
     <div className="absolute top-0 left-0 w-full bg-[#242038] overflow-x-hidden">
-      <main className="flex w-full h-screen justify-center ">
-        <div className="absolute top-0 left-0 h-full w-full movingBackground"></div>
-        <div className=" relative flex flex-col items-center rounded-4xl">
-          <h1 ref={titleRef} className="px-2 text-4xl font-bold mt-10 text-center">      
-            <span className="inline-block mr-2">Widgets</span>
-            <span className="inline-block mr-2">Widgets</span>
-            <span className="inline-block mr-2">and</span>
-            <span className="inline-block mr-2">more</span>
-            <span className="inline-block font-black text-transparent  bg-clip-text bg-[length:200%_200%] bg-gradient-to-r from-red-500 via-yellow-500 to-purple-600">WIDGETS!</span>
-          </h1>
-          <Releases className="py-4 w-full"/>
-        </div>
+      <main className="relative flex flex-col w-full h-screen items-center justify-center ">
+        <h1 className="text-4xl font-poppins font-bold">Widgets Crate</h1>
+        <p className="mt-2">A crate.. full of widgets?</p>
+        <Link className="cursor-pointer mt-2 bg-[#8D86C9] px-2 py-1 rounded-sm" href="/download">Download Now!</Link>
       </main>
+
     </div>
   );
 }

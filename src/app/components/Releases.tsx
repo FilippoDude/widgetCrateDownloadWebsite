@@ -58,7 +58,7 @@ const Releases = ({className} : {className: string}) => {
             :
             <div className={"relative flex flex-col gap-2 h-fit " + className}>
                 {releases.map((release, i) => {
-                    return <div key={i} ref={ref => addReleaseElRef(ref)} className="relative rounded-2xl w-full sm:w-200 min-h-40 bg-[#00000060] flex flex-col justify-around">
+                    return <div key={i} ref={ref => addReleaseElRef(ref)} className="relative rounded-2xl w-full sm:w-200 min-h-40 bg-[#00000060] backdrop-blur-xl flex flex-col justify-around">
                             <div className="relative w-full flex flex-row justify-between px-4 flex-wrap gap-x-6 gap-y-2 pt-4">
                                 <p className="font-black text-4xl">{release["name"]}</p>
                                 <p className="font-bold text-xl ">{extractDate(release["published_at"])}</p>
