@@ -5,9 +5,7 @@ import Releases from "../components/Releases";
 export default function Download() {
   const titleRef = useRef<HTMLHeadingElement | null>(null)
   useEffect(() => {
-    console.log("TEST")
     if(titleRef.current != null){
-      console.log("TEST1")
       const words = titleRef.current.querySelectorAll("span");
       const allExceptLast = Array.from(words).slice(0, -1);
       const lastWord = words[words.length - 1];

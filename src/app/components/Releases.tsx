@@ -12,7 +12,6 @@ const Releases = ({className} : {className: string}) => {
     const [releases, setReleases] = useState<releasesType>(null)
     const releasesElsRef = useRef<HTMLDivElement[]>([]) 
     useEffect(() => {
-        console.log(releases)
         if(releasesElsRef.current){
             for(let i = 0; i<releasesElsRef.current.length; i++){
                 gsap.fromTo(releasesElsRef.current[i], {
