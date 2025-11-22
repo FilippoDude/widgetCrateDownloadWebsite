@@ -1,0 +1,11 @@
+name: widgetcraftwebsite
+services:
+  server:
+    image: node
+    working_dir: /app
+    restart: always
+    ports:
+      - 3717:3000
+    volumes:
+      - ./app:/app
+    command: ./entrypoint.sh
